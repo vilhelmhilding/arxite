@@ -1,0 +1,83 @@
+/* ----------------------------------------------------------------------------
+ * File: app/static/style.css
+ * Author: Vilhelm Hilding
+ * Project: Arxite – Hardened Web Application Architecture
+ * Description: Base styles for layout, typography, buttons, and responsiveness.
+ * -------------------------------------------------------------------------- */
+
+/* Base styling */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1c1c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+/* Main container */
+.container {
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Logo */
+.logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: 6px;
+}
+
+/* Tagline */
+.tagline {
+  font-size: 1.05em;
+  line-height: 1.4;
+  margin: 8px 0 30px;
+  color: #555;
+}
+
+/* Button styling */
+.button {
+  background-color: #0a84ff;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #0066cc;
+  transform: translateY(-2px);
+}
+
+/* Button container with spacing */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .logo {
+    width: 140px;
+  }
+
+  .tagline {
+    font-size: 0.95em;
+    padding: 0 12px;
+  }
+
+  .button {
+    padding: 10px 18px;
+    font-size: 1em;
+  }
+}

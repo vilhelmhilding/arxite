@@ -1,0 +1,63 @@
+# ----------------------------------------------------------------------------
+# File: docker-compose.yml
+# Author: Vilhelm Hilding
+# Project: Arxite – Hardened Web Application Architecture
+# Description: Defines application, Redis, and Cloudflare Tunnel services.
+# ----------------------------------------------------------------------------
+
+version: "3.9"
+
+services:
+  # ----------------------------------------------------------------------------
+  # Flask Application Service
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .                  # Build from the project root
+      dockerfile: app/Dockerfile  # Use the app-specific Dockerfile
+    container_name: arxite_app
+    ports:
+      - "127.0.0.1:51821:51821"   # Expose Flask locally only (loopback)
+    env_file:
+      - .env                      # Load environment variables
+    depends_on:
+      - redis                     # Ensure Redis is available before start
+    networks:
+      - internal_net
+
+  # ----------------------------------------------------------------------------
+  # Redis Service for Rate Limiting and Session Store
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7
+    container_name: arxite_redis
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - internal_net
+
+  # ----------------------------------------------------------------------------
+  # Cloudflare Tunnel Service
+  # ----------------------------------------------------------------------------
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: arxite_cloudflared
+    command: tunnel --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./cloudflared/config.yml:/etc/cloudflared/config.yml:ro
+      - ./cloudflared/REPLACE_WITH_TUNNEL_ID.json:/etc/cloudflared/REPLACE_WITH_TUNNEL_ID.json:ro
+      - ./cloudflared/cert.pem:/etc/cloudflared/cert.pem:ro
+    depends_on:
+      - app
+    networks:
+      - internal_net
+
+# ----------------------------------------------------------------------------
+# Network Definition
+# ----------------------------------------------------------------------------
+networks:
+  internal_net:
+    driver: bridge

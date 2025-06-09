@@ -1,0 +1,65 @@
+<!-- ----------------------------------------------------------------------------
+  File: app/templates/index.html
+  Author: Vilhelm Hilding
+  Project: Arxite – Hardened Web Application Architecture
+  Description: Main landing page with GitHub OAuth login integration.
+---------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Arxite – Hardened Web Application Architecture</title>
+  <meta name="description" content="Arxite is a demo of a hardened, production-ready web app architecture built on Zero Trust and modern security principles.">
+
+  <!-- Open Graph (Facebook, Messenger, Slack, Discord, LinkedIn) -->
+  <meta property="og:title" content="Arxite – Hardened Web Application Architecture">
+  <meta property="og:description" content="A demo of a secure, production-ready web app architecture based on Zero Trust principles.">
+  <meta property="og:image" content="{{ url_for('static', filename='preview.png', _external=True) }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Cards (also used by iMessage and others) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arxite – Hardened Web Application Architecture">
+  <meta name="twitter:description" content="A demo of a secure, production-ready web app architecture based on Zero Trust principles.">
+  <meta name="twitter:image" content="{{ url_for('static', filename='preview.png', _external=True) }}">
+
+  <!-- iOS Safari appearance -->
+  <meta name="theme-color" content="#f5f6fa" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <a href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Arxite logo" class="logo" draggable="false" oncontextmenu="return false;" />
+    </a>
+    <p class="tagline">
+      Hardened web application architecture,<br>
+      built on Zero Trust & modern security principles.
+    </p>
+
+    <div class="button-group">
+      <a href="https://github.com/vilhelmhilding/arxite" class="button" target="_blank" rel="noopener noreferrer" aria-label="View Arxite on GitHub">View on GitHub</a>
+
+      {% if user %}
+        <p>Logged in as {{ user.login }}</p>
+        <a href="{{ url_for('logout') }}" class="button">Log out</a>
+      {% else %}
+        <a href="{{ url_for('auth') }}" class="button">Login with GitHub</a>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

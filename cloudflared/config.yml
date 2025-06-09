@@ -1,0 +1,30 @@
+# ----------------------------------------------------------------------------
+# File: cloudflared/config.yml
+# Author: Vilhelm Hilding
+# Project: Arxite – Hardened Web Application Architecture
+# Description: Cloudflare Tunnel configuration for exposing the Flask app securely.
+# ----------------------------------------------------------------------------
+
+# Identifier for the tunnel (must match the created tunnel name)
+tunnel: arxite_com
+
+# Path to the credentials file created at tunnel provision time
+credentials-file: /etc/cloudflared/REPLACE_WITH_TUNNEL_ID.json
+
+# Optional origin certificate for additional verification
+origincert: /etc/cloudflared/cert.pem
+
+# ----------------------------------------------------------------------------
+# Ingress Rules
+# ----------------------------------------------------------------------------
+# Define routing rules mapping hostnames and paths to local services.
+ingress:
+  # Route traffic for the root domain and www subdomain to the Flask app
+  - hostname: arxite.com
+    service: http://app:51821
+
+  - hostname: www.arxite.com
+    service: http://app:51821
+
+  # Default rule: return HTTP 503 if no other rules match
+  - service: http_status:503

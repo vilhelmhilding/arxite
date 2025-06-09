@@ -1,0 +1,32 @@
+<!-- ----------------------------------------------------------------------------
+  File: app/templates/error.html
+  Author: Vilhelm Hilding
+  Project: Arxite – Hardened Web Application Architecture
+  Description: Generic error page rendered for HTTP errors (403, 404, 429, 500).
+---------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ code }} – Arxite</title>
+  <meta name="theme-color" content="#f5f6fa" />
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <a href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Arxite logo" class="logo" draggable="false" oncontextmenu="return false;" />
+    </a>
+    <p class="tagline">
+      {{ message }}
+    </p>
+    <div class="button-group">
+      <a href="{{ url_for('home') }}" class="button">Go back to Home</a>
+    </div>
+  </div>
+</body>
+</html>

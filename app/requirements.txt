@@ -1,0 +1,14 @@
+# ----------------------------------------------------------------------------
+# File: app/requirements.txt
+# Author: Vilhelm Hilding
+# Project: Arxite – Hardened Web Application Architecture
+# Description: Python package dependencies for the Flask application.
+# ----------------------------------------------------------------------------
+
+flask
+waitress
+flask-limiter
+python-dotenv
+redis
+authlib
+requests
