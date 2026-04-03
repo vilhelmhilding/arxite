@@ -2,6 +2,9 @@
 
 **Arxite** is a fully self-hosted, production-ready demo of a **Zero Trust web application architecture**.
 
+## Live Demo
+https://arxite.com
+
 ## Table of Contents
 - [Key Features](#key-features)
 - [Requirements](#requirements)
